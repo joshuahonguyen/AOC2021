@@ -1,0 +1,88 @@
+File.open("1516.txt", "r") do |file|
+    total = 0
+    for lines in file.readlines
+        cfg8 = ""
+        cfg4 = ""
+        cfg1 = ""
+        cfg7 = ""
+        config1 = []
+        config2 = []
+
+        for line in lines.split(" |")[0].split(" ")
+            if line.length == 4
+                cfg4 = line
+            elsif line.length == 2
+                cfg1 = line
+            elsif line.length == 7
+                cfg8 = line
+            elsif line.length == 3
+                cfg7 = line
+            elsif line.length == 5
+                config1.append(line)
+            elsif line.length == 6
+                config2.append(line)
+            end
+        end
+
+        list = []
+        for line in lines.split(" |")[1].split(" ")
+            if line.length == 4
+                list.append(4)
+            elsif line.length == 2
+                list.append(1)
+            elsif line.length == 7
+                list.append(8)
+            elsif line.length == 3
+                list.append(7)
+            else
+                removed = line
+                
+                count = 0
+                count2 = 0
+                count3 = 0
+                count4 = 0
+                removed.each_char do |char|
+                    cfg1.each_char do |c|
+                        if char == c
+                            count += 1
+                        end
+                    end
+                    cfg8.each_char do |c|
+                        if char == c
+                            count2 += 1
+                        end
+                    end
+                    cfg4.each_char do |c|
+                        if char == c
+                            count3 += 1
+                        end
+                    end
+                    cfg7.each_char do |c|
+                        if char == c
+                            count4 += 1
+                        end
+                    end
+                end
+                
+                if count4 == 3 && count2 == 6 && count == 2 && count3 == 3
+                    list.append(0)
+                elsif count2 == 5 && count3 == 2 && count == 1
+                    list.append(2)
+                elsif count2 == 5 && count3 == 3 && count == 1
+                    list.append(5)
+                elsif count2 == 6 && count3 == 3 && count == 1
+                    list.append(6)
+                elsif count == 2 && count2 == 6 
+                    list.append(9)
+                elsif count == 2
+                    list.append(3)
+                end
+                
+            end
+        end
+        number = list.join("")
+        puts number
+        total += number.to_i
+    end
+    puts total
+end
