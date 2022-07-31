@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<audio id="sound01" >
+        		<source src="https://freesound.org/data/previews/555/555418_12455127-lq.mp3" type="audio/mpeg">
+    		</audio>
+	 	<input type="file" name="load" id="load" onClick="document.getElementById('sound01').play()">
+		<pre id="res"></pre>
+		<script type="text/javascript">
+			document.getElementById('load').addEventListener('change', function() {
+            			var fr=new FileReader();
+            			fr.onload=function(){
+                			document.getElementById('res').textContent=fr.result;
+					switch (name) {
+						case "day11.txt":
+							var vals = document.getElementById("res").textContent.split("\r\n");
+							var array = [];
+							var arr = [];
+							var values;
+							var flashes = 0;
+							for (var i = 0; i < vals.length; i++) {
+								values = vals[i].split("");
+								arr = [];
+								for (var j = 0; j < values.length; j++) {
+									arr.push(values[j]);
+								}
+								array.push(arr);
+							}
+							for (var i = 0; i < 100; i++) {
+								var index = i;
+								for (var j = 0; j < array.length; j++) {
+									for (var k = 0; k < array[j].length; k++) {
+										array[j][k] = parseInt(array[j][k])+1;
+									}
+								}
+								var thing = -1;
+								while (thing != 0) {
+									var thingy = 0;
+								for (var j = 0; j < array.length; j++) {
+									var jSub = j-1;
+									var jAdd = j+1;
+									for (var k = 0; k < array[j].length; k++) {
+										var kSub = k-1;
+										var kAdd = k+1;
+									
+										if (array[j][k] > 9) {
+											flashes += 1;
+											thingy += 1;
+											if (kSub >= 0) {
+												if (array[j][kSub] != 0) {
+												array[j][kSub] += 1;
+												}
+											}
+											if (jSub >= 0) {
+												if (array[jSub][k] != 0) {
+												array[jSub][k] += 1;
+												}
+											}
+											if (kSub >= 0 && jSub >= 0) {
+												if (array[jSub][kSub] != 0) {
+												array[jSub][kSub] += 1;
+												}
+											}
+											if (jAdd < array.length) {
+												if (array[jAdd][k] != 0) {
+												array[jAdd][k] += 1;
+												}
+											}
+											if (kAdd < array[j].length) {
+												if (array[j][kAdd] != 0) {
+												array[j][kAdd] += 1;
+												}
+											}
+											if (jAdd < array.length && kAdd < array[j].length) {
+												if (array[jAdd][kAdd] != 0) {
+												array[jAdd][kAdd] += 1;
+												}
+											}
+											if (jAdd < array.length && kSub >= 0) {
+												if (array[jAdd][kSub] != 0) {
+													array[jAdd][kSub] += 1;
+												}
+											}
+											if (jSub >= 0 && kAdd < array[j].length) {
+												if (array[jSub][kAdd] != 0) {
+													array[jSub][kAdd] += 1;
+												}
+											}
+
+											array[j][k] = 0;
+										}
+									}
+								}
+									thing = thingy;
+								}
+								document.title = i+1;
+								alert(array.join('\r\n'));
+							}
+							alert(flashes);
+						}
+            				}
+            		fr.readAsText(this.files[0]);
+              		var name = this.files[0].name;
+        	})
+		</script>
+	</body>
+</html>

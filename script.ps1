@@ -3,6 +3,7 @@ $year = 2021
 [int] $id = Read-Host -Prompt "ID"
 
 $savename = "$(($id*2)-1)$($id*2).txt"
+$savename2 = "day$($id).txt"
 $site = "https://adventofcode.com/$($year)/day/$($id)/input"
 echo $savename
 
@@ -14,4 +15,4 @@ $cookie.Value = "53616c7465645f5f509c590bc3409207a1bd4846aa9b51313138d9d7f73585c
 $cookie.Domain = "adventofcode.com"
 
 $session.Cookies.Add($cookie)
-Invoke-WebRequest $site -WebSession $session -o $savename
+Invoke-WebRequest $site -WebSession $session -o $savename2

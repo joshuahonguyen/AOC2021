@@ -1,0 +1,32 @@
+use std::fs;
+
+fn main() {
+    let file = fs::read_to_string("../day12.txt").expect("Cannot read file");
+    
+    let mut start: Vec<String> = Vec::new();
+    let mut middle: Vec<String> = Vec::new();
+    let mut end: Vec<String> = Vec::new();
+
+    let mut small: Vec<String> = Vec::new();
+
+    let contents: Vec<&str> = file.split("\n").collect();
+    for content in contents {
+        let mut content: String = content.to_owned();
+        content.push('-');
+        let points: Vec<&str> = content.split("-").collect();
+        let point_a = points[0];
+        let point_b = points[1];
+        if point_b.contains("start") {
+            println!("{}", point_a);
+        }
+        else if point_b.contains("end") {
+            println!("{}", point_a);
+        }
+        else if point_a.contains("start") {
+            println!("{}", point_b);
+        }
+        else if point_b.contains("end") {
+            println!("{}", point_b);
+        }
+    }
+} 
